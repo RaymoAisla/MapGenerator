@@ -1,4 +1,5 @@
 import unittest
+import random
 from math import pi
 from orientation import Orientation
 
@@ -87,6 +88,14 @@ class TestOrientationMethods(unittest.TestCase):
         self.assertRaises(ValueError,Orientation.from_orientation, 'E>')
         self.assertRaises(ValueError,Orientation.from_orientation, '<')
         self.assertRaises(ValueError,Orientation.from_orientation, 'ENE<NE')
+
+    def test_getRandomDirection(self):
+        orientation = Orientation.from_angle(pi/2.0, pi/4.0)
+        random.seed(1)
+        for _ in range(0,10):
+            direction = orientation.getRandomDirection()
+            self.assertGreaterEqual(direction, orientation.angleDirection - 0.5 * orientation.angleAperture)
+            self.assertLess(direction, orientation.angleDirection + 0.5 * orientation.angleAperture)
 
 
 if __name__ == '__main__':

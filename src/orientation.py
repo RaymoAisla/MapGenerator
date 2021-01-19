@@ -1,5 +1,6 @@
 from enum import Enum
 from math import pi
+import random
 
 def getAngleFromOrientation(orientationString):
     angleDivision = 2
@@ -101,6 +102,7 @@ class Orientation:
     def __init__(self, angleDirection, angleAperture):
         self.angleDirection = angleDirection % (2 * pi)
         self.angleAperture = angleAperture % (2 * pi)
+        random.seed()
 
     @classmethod
     def from_angle(cls, direction, aperture):
@@ -111,3 +113,5 @@ class Orientation:
         angleProperties = getAngleFromOrientation(orientationString)
         return cls(pi*angleProperties['angleDirection']['num']/angleProperties['angleDirection']['den'], pi/angleProperties['angleAperture'])
                 
+    def getRandomDirection(self):
+        return (random.random() - 0.5) * self.angleAperture + self.angleDirection
